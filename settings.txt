@@ -1,0 +1,15 @@
+T-nom du fichier axe x avec erreur :X.txt
+T-nom du fichier axe y avec erreur :Y.txt
+T-titre :ceci est un titre
+T-titre de l'axe x :axe x
+T-titre de l'axe y :axe y
+T-titre du fichier :Figure 2
+T-style des points :x
+B-grille :True
+B-legende :False
+B-erreur :False
+T-echelle de l'axe x :linear
+T-echelle de l'axe y :linear
+T-legende des points :tracé
+T-legende des erreurs :a
+N-nombre de graphes :3
