@@ -1,8 +1,8 @@
 N-population :10000
 N-population saine initiale :9990
 N-population rétablie initiale :0
-R-infectuosite :2.
-R-severite :0.1
+R-transmission :0.85
+R-recuperation :0.5
 N-temps de simulation :100
 N-nombre d'évaluations :10000
 
