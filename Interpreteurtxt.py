@@ -6,36 +6,12 @@ Created on Thu Aug 26 20:07:48 2021
 """
 
 #### partie indépendante 1
-def LireListe(Fichier,settings):
-    ListeDestination    = []
-    ListeDestinationErr = []
-    
-    for j in range(settings["nombre de graphes"]):
-        fichier=open(Fichier,'r')
-        Ld=[]
-        Lderr=[]
-        for i in fichier:
-            temp=i.split()
-            Ld.append(float(temp[2*j]))
-            Lderr.append(float(temp[2*j+1]))
-        ListeDestination.append(Ld)
-        ListeDestinationErr.append(Lderr)
-        fichier.close()
-    return ListeDestination,ListeDestinationErr
 
 
-def listeur(txt):
-    L=[]
-    temp=""
-    for i in txt:
-        if i == ',':
-            L.append(temp)
-            temp=""
-        if i != ',':
-            temp+=i
-    return L
 
-#### partie indépendante 2 lecteur de txt
+
+
+
 #T: texte --- R: réel --- N: entier --- B: booléen --- L:
 def Decapsule(argument):
     if argument[0] == "T":
@@ -46,8 +22,8 @@ def Decapsule(argument):
         return(int(argument.split(":")[1]))
     if argument[0] == "B":
         return(argument.split(":")[1][0:-1] == "True")
-    if argument[0] == "L":
-        return listeur(argument.split(":")[1])
+#    if argument[0] == "L":
+#        return listeur(argument.split(":")[1])
     if argument[0] == "#":
         return [False]
     

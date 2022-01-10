@@ -1,15 +1,8 @@
-T-nom du fichier axe x avec erreur :X.txt
-T-nom du fichier axe y avec erreur :Y.txt
-T-titre :ceci est un titre
-T-titre de l'axe x :axe x
-T-titre de l'axe y :axe y
-T-titre du fichier :Figure 2
-T-style des points :x
-B-grille :True
-B-legende :False
-B-erreur :False
-T-echelle de l'axe x :linear
-T-echelle de l'axe y :linear
-T-legende des points :trac�
-T-legende des erreurs :a
-N-nombre de graphes :3
+N-population :10000
+N-population saine initiale :9990
+N-population rétablie initiale :0
+R-infectuosite :2.
+R-severite :0.1
+N-temps de simulation :100
+N-nombre d'évaluations :10000
+
