@@ -49,9 +49,11 @@ def Typeur(val):
         return "N"
     
 
+
 def PushSettings(Dictionnaire,Fichier):
     fichier = open(Fichier,"w")
     for cle, valeur in Dictionnaire.items():
         fichier.write(Typeur(valeur)+"-"+cle+" :"+str(valeur)+"\n")
     fichier.close()
 
+Param=LireSettings("settings.txt")
