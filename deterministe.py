@@ -1,7 +1,10 @@
 import numpy as np
 import math as m
-from Interpreteurtxt import *
+from Interpreteurtxt import Param
 import scipy.integrate as sp
+
+### Ce fichier contient le code necessaire pour la réalisation du modèle deterministe
+
 
 def deterministe_case(
                       N = Param["population"],        
@@ -17,18 +20,18 @@ def deterministe_case(
     Description : Lance une simulation d'épidémie par la résolution du système d'équations déterministe.
     ---
     Variables d'entrée : 
-    N             : Population totale. Fixé par défaut dans le fichier texte
-    beta          : Taux de transmission de la maladie. Fixé par défaut dans le fichier texte
-    gamma         : Taux de récupération de la maladie. Fixé par défaut dans le fichier texte
-    Tf            : Temps final de la simulation. Fixé par défaut dans le fichier texte
-    N0            : Population saine initiale. Fixé par défaut dans le fichier texte
-    Np            : Nombre d'évaluations (nombre de caluls). Fixé par défaut dans le fichier texte
-    Ret           : Population rétablie initiale. Fixé par défaut dans le fichier texte 
-    Renvoie_liste : Boléen décidant du contenu renvoyé par l'appel. True par défaut
+    N             : Population totale. Fixé par défaut dans le fichier texte.
+    beta          : Taux de transmission de la maladie. Fixé par défaut dans le fichier texte.
+    gamma         : Taux de récupération de la maladie. Fixé par défaut dans le fichier texte.
+    Tf            : Temps final de la simulation. Fixé par défaut dans le fichier texte.
+    N0            : Population saine initiale. Fixé par défaut dans le fichier texte.
+    Np            : Nombre d'évaluations (nombre de caluls). Fixé par défaut dans le fichier texte.
+    Ret           : Population rétablie initiale. Fixé par défaut dans le fichier texte.
+    Renvoie_liste : Boléen décidant du contenu renvoyé par l'appel. True par défaut.
     ---
     Variables renvoyées :
-    Si Renvoie_liste est réglé sur True, renvoie les listes S,I,R.
-    Si Renvoie_liste est réglé sur False, renvoie seulement le rapport S(t=Tf)/N
+    Si Renvoie_liste est réglé sur True, renvoie les listes S,I,R..
+    Si Renvoie_liste est réglé sur False, renvoie seulement le rapport S(t=Tf)/N.
     """
 
     I0 = N - N0 - Ret #calcul du nombre d'infectés initialement par conservation de la population

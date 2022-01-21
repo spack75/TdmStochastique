@@ -1,4 +1,4 @@
-from Interpreteurtxt import *
+from Interpreteurtxt import Param
 from deterministe import *
 from representation import *
 
@@ -14,14 +14,14 @@ Ret   = Param["population rétablie initiale"]
 
 def etude_un_cas(save=False,nom="figure"):
     """
-    Description : Ensemble d'opérations permettant de résoudre le système d'équations déterministe à partir des fonctions du fichier deterministe.py
+    Description : Ensemble d'opérations permettant de résoudre le système d'équations déterministe à partir des fonctions du fichier deterministe.py .
     ---
     Variables d'entrée : 
-    save : Booléen, False par défaut. Détermine si le graphique généré par l'appel sera enregistré (True) ou non (False)
+    save : Booléen, False par défaut. Détermine si le graphique généré par l'appel sera enregistré (True) ou non (False).
     nom  : texte, "figure" par défaut. Détermine, le cas échéant, le nom du fichier sauvegardé. 
     ---
     Variables renvoyées :
-    une image affichée à l'écran ou enregistrée dans le même dossier d'execution de main.py
+    une image affichée à l'écran ou enregistrée dans le même dossier d'execution de main.py.
     """
     (S,I,V,t) = deterministe_case()
     ploteur([t,t,t],[S,I,V],["individus sains","individus infectés","individus rétablis"],[".",".","."],save=save,nom=nom)
@@ -31,11 +31,11 @@ def etude_R0(save=False,nom="figure"):
     Description : Ensemble d'opérations permettant d'étudier l'issue de l'épidémie par approche déterministe. La méthode utilisée ici est de fixer beta (respectivement gamma) et de faire varier gamme (respectivement beta) pour faire évoluer R0.
     ---
     Variables d'entrée : 
-    save : Booléen, False par défaut. Détermine si le graphique généré par l'appel sera enregistré (True) ou non (False)
+    save : Booléen, False par défaut. Détermine si le graphique généré par l'appel sera enregistré (True) ou non (False).
     nom  : texte, "figure" par défaut. Détermine, le cas échéant, le nom du fichier sauvegardé. 
     ---
     Variables renvoyées :
-    une image affichée à l'écran ou enregistrée dans le même dossier d'execution de main.py
+    une image affichée à l'écran ou enregistrée dans le même dossier d'execution de main.py .
     """
     taux_S_sur_N_gamma_cte = [] #creation de la liste des individus sains à l'issue de la simulation à gamma = cte et beta variable
     taux_S_sur_N_beta_cte  = [] #creation de la liste des individus sains à l'issue de la simulation à beta = cte et gamma variable
@@ -52,11 +52,11 @@ def etude_GammaBeta_2D():
     Description : Ensemble d'opérations permettant d'étudier l'issue de l'épidémie par approche déterministe. La méthode utilisée ici est de faire varier beta ET gamma dans le but de tracer S(t=tfinal) = f(beta,gamma).
     ---
     Variables d'entrée : 
-    save : Booléen, False par défaut. Détermine si le graphique généré par l'appel sera enregistré (True) ou non (False)
+    save : Booléen, False par défaut. Détermine si le graphique généré par l'appel sera enregistré (True) ou non (False).
     nom  : texte, "figure" par défaut. Détermine, le cas échéant, le nom du fichier sauvegardé. 
     ---
     Variables renvoyées :
-    une image affichée à l'écran ou enregistrée dans le même dossier d'execution de main.py
+    une image affichée à l'écran ou enregistrée dans le même dossier d'execution de main.py .
     """
 
     gamma2d = [0.1*i for i in range(1,20)] #création de l'intervalle gamma
@@ -74,7 +74,6 @@ def etude_GammaBeta_2D():
         RZ.append(tempR)
     ploteur2d(X,Y,Z,titreX="beta",titreY="gamma") #tracé
     ploteur2d(X,Y,RZ,titreX="beta",titreY="gamma") #tracé
-
 
 etude_un_cas()
 etude_R0()
