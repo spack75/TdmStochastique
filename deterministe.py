@@ -1,6 +1,6 @@
 import numpy as np
 import math as m
-from Interpreteurtxt import Param
+from interpreteurtxt import Param
 import scipy.integrate as sp
 
 ### Ce fichier contient le code necessaire pour la réalisation du modèle deterministe

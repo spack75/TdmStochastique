@@ -1,7 +1,7 @@
-from Interpreteurtxt import Param
+from interpreteurtxt import Param
 from deterministe import *
 from representation import *
-from Gillespie import *
+from gillespie import *
 
 
 N     = Param["population"]      
@@ -29,7 +29,7 @@ def etude_un_cas(save = False,
     """
 
     (S,I,V,t) = deterministe_case()
-    ploteur([t,t,t],[S,I,V],["individus sains","individus infectés","individus rétablis"],[".",".","."],"temps","population",nom,save)
+    ploteur([t,t,t],[S,I,V],["individus sains","individus infectés","individus rétablis"],["-","-","-"],"temps","population",nom,save)
 
 
 def etude_R0(save = False,
@@ -59,8 +59,10 @@ def etude_R0(save = False,
     ploteur([R0,R0],[taux_S_sur_N_beta_cte,taux_S_sur_N_gamma_cte],["à beta constant", "à gamma constant"],["x","."],"R0","Proportion de population",nom,save) #tracé
 
 
-def etude_GammaBeta_2D(save = False,
-                       nom = "figure"
+def etude_GammaBeta_2D(save1 = False,
+                       save2 = False,
+                       nom1 = "figure",
+                       nom2 = "figure"
                        ):
 
     """
@@ -91,8 +93,8 @@ def etude_GammaBeta_2D(save = False,
         RZ.append(tempR) #injection de tempR pour completer une ligne de RZ à l'issue de la boucle imbriquée 
 
     ##tracés 
-    ploteur2d(X,Y,Z,"taux de recuperation","taux de transmission",nom,save) #tracé
-    ploteur2d(X,Y,RZ,"taux de recuperation","taux de transmission",nom,save) #tracé
+    ploteur2d(X,Y,Z,"taux de recuperation","taux de transmission",nom1,save1) #tracé
+    ploteur2d(X,Y,RZ,"taux de recuperation","taux de transmission",nom2,save2) #tracé
 
 
 def etude_Gillespie(save = False, nom = "figure"):

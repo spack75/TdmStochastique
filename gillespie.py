@@ -1,6 +1,4 @@
-from curses.ascii import SI
-from re import S
-from Interpreteurtxt import Param
+from interpreteurtxt import Param
 import random as rd
 import math as m
 
