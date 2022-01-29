@@ -1,17 +1,17 @@
 import matplotlib.pyplot as plt
 
-def ploteur2d(X,Y,Z,titreX="titreX",titreY="titreY",nom="figure",save=False):
+def ploteur2d(X,Y,Z,titreX="titreX",titreY="titreY",colorbar_nom="colorbar",nom="figure",save=False):
     """
-    Description : Réalise un tracé contour à partir des listes fournies.
+    Description : Realise un trace contour à partir des listes fournies.
     ---
-    variables d'entrée : 
-    X      : tableau contenant les positions x du domaine à représenter.
-    Y      : tableau contenant les positions y du domaine à représenter.
-    Z      : tableau contenant les valeurs z du domaine à représenter.
-    titreX : titre de l'axe x. "titreX" par défaut.
-    titreY : titre de l'axe y. "titreY" par défaut.
-    nom    : non de l'image sous laquelle elle sera enregistrée. "figure" par défaut.
-    save   : booléen. False par défaut.
+    variables d'entree : 
+    X      : tableau contenant les positions x du domaine à representer.
+    Y      : tableau contenant les positions y du domaine à representer.
+    Z      : tableau contenant les valeurs z du domaine à representer.
+    titreX : titre de l'axe x. "titreX" par defaut.
+    titreY : titre de l'axe y. "titreY" par defaut.
+    nom    : non de l'image sous laquelle elle sera enregistree. "figure" par defaut.
+    save   : booleen. False par defaut.
     ---
     variables de sortie :
     Si save est False, affiche une figure .
@@ -22,26 +22,26 @@ def ploteur2d(X,Y,Z,titreX="titreX",titreY="titreY",nom="figure",save=False):
     plt.xlabel(titreX)
     plt.ylabel(titreY)
     cbar=plt.colorbar()
-    cbar.set_label("proportion d'individus sains")
+    cbar.set_label(colorbar_nom)
     if not save:
         plt.show()
     else :
-        plt.savefig(nom)
+        plt.savefig("Pictures/"+nom)
 
 
 def ploteur(X,Y,labels,format,titreX="titreX",titreY="titreY",nom="figure",save=False):
     """
-    Description : Réalise un tracé à partir des listes fournies.
+    Description : Realise un trace à partir des listes fournies.
     ---
-    variables d'entrée : 
-    X      : tableau contenant les positions x du domaine à représenter. Chaque ligne correspond à un jeu de données.
-    Y      : tableau contenant les positions y du domaine à représenter. Chaque ligne correspond à un jeu de données.
-    titreX : titre de l'axe x. "titreX" par défaut.
-    titreY : titre de l'axe y. "titreY" par défaut.
-    nom    : non de l'image sous laquelle elle sera enregistrée. "figure" par défaut.
-    save   : booléen. False par défaut.
+    variables d'entree : 
+    X      : tableau contenant les positions x du domaine à representer. Chaque ligne correspond à un jeu de donnees.
+    Y      : tableau contenant les positions y du domaine à representer. Chaque ligne correspond à un jeu de donnees.
+    titreX : titre de l'axe x. "titreX" par defaut.
+    titreY : titre de l'axe y. "titreY" par defaut.
+    nom    : non de l'image sous laquelle elle sera enregistree. "figure" par defaut.
+    save   : booleen. False par defaut.
     ---
-    variables renvoyées :
+    variables renvoyees :
     Si save est False, affiche une figure.
     Si save est True, enregistre l'image au nom de la variable nom.
     """
@@ -56,4 +56,4 @@ def ploteur(X,Y,labels,format,titreX="titreX",titreY="titreY",nom="figure",save=
     if not save:
         plt.show()
     else :
-        plt.savefig(nom)
+        plt.savefig("Pictures/"+nom)
