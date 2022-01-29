@@ -26,7 +26,7 @@ def ploteur2d(X,Y,Z,titreX="titreX",titreY="titreY",nom="figure",save=False):
     if not save:
         plt.show()
     else :
-        plt.savefig(nom)
+        plt.savefig("Pictures/"+nom)
 
 
 def ploteur(X,Y,labels,format,titreX="titreX",titreY="titreY",nom="figure",save=False):
@@ -56,4 +56,4 @@ def ploteur(X,Y,labels,format,titreX="titreX",titreY="titreY",nom="figure",save=
     if not save:
         plt.show()
     else :
-        plt.savefig(nom)
+        plt.savefig("Pictures/"+nom)
