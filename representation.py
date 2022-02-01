@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-def ploteur2d(X,Y,Z,titreX="titreX",titreY="titreY",nom="figure",save=False):
+def ploteur2d(X,Y,Z,titreX = "titreX",titreY = "titreY",nom = "figure",save=False):
     """
     Description : Réalise un tracé contour à partir des listes fournies.
     ---
