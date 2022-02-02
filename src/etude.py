@@ -124,6 +124,7 @@ def etude_Gillespie(save = False, nom = "figure"):
     It = [N-N0-Ret] # liste des populations infectées à l'instant t 
     Rt = [Ret] # liste des populations rétablies à l'instant t 
 
+    cpt = 0     # compteur d'itération
     ## opérations 
     while T[-1] < Tf and It[-1] != 0: # cas d'arret = le temps final est dépassé ou bien il n'y a plus d'infecté  
         temp = T_plus_Delta_T(T[-1],St[-1],It[-1]) # si le cas d'arret n'est pas vérifié, on établit la situation à l'instant d'après 
@@ -131,6 +132,7 @@ def etude_Gillespie(save = False, nom = "figure"):
         St.append(temp[0][0])
         It.append(temp[0][1])
         Rt.append(temp[0][2])
+        cpt = cpt + 1       # incrémentation du compteur
      ## Temps d'arrêt
         if (It[-1] == 0):
             print("\n")
@@ -140,6 +142,10 @@ def etude_Gillespie(save = False, nom = "figure"):
 
     ## pic d'infecté
     [I_max,T_max] = maxi_IT(It,T)
-    print("I max = ", I_max, "T max = ", T_max,"\n")
-    print("T_end = ", T[-1])
-    return(I_max,T_max)
+    print("----------------------------------------")
+    print("Nombre d'infecté maximal : I max = ", I_max)
+    print("Temps du pic maximal : T max = ", int(T_max*1e5)/1e5)
+    print("Temps final : T_end = ", int(T[-1]*1e5)/1e5)
+    print("Nombre de pas de temps = ", cpt)
+    print("----------------------------------------")
+    return(I_max,T_max,T[-1],cpt)
