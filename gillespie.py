@@ -87,3 +87,11 @@ def T_plus_Delta_T(t,
   if random()<pi(S,I,N,beta,gamma): #Disjonction de cas 
     return((S-1,I+1,N-S-I),t+Delta_T(lambd(S,I,N,beta,gamma)))
   return((S,I-1,N-S-I+1),t+Delta_T(lambd(S,I,N,beta,gamma)))
+
+def maxi_IT(I,T):
+    I_max = []
+    for i in range(len(I)):
+        if (max(I) == I[i]):
+            I_max = I[i]
+            T_max = T[i]
+    return(I_max,T_max)

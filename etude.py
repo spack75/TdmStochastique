@@ -1,8 +1,8 @@
 from interpreteurtxt import Param
 from deterministe_case import deterministe_case
 from numpy import meshgrid
-from representation import ploteur2d, ploteur
-from gillespie import T_plus_Delta_T
+from representation import ploteur2d, ploteur, histogramme
+from gillespie import T_plus_Delta_T, maxi_IT
 from diffusive_case import Diffusive_case,variance_temps,temps_moyen
 
 
@@ -13,6 +13,7 @@ Tf    = Param["temps de simulation"]
 N0    = Param["population saine initiale"]
 NP    = Param["nombre d'evaluations"]
 Ret   = Param["population retablie initiale"]
+N_sim = Param["nombre de simulations"] 
 
 
 def etude_un_cas(save = False,
@@ -116,6 +117,7 @@ def etude_Gillespie(save = False, nom = "Gillespie"):
     St = [N0] #liste des populations saines à l'instant t 
     It = [N-N0-Ret] #liste des populations infectees à l'instant t 
     Rt = [Ret] #liste des populations retablies à l'instant t 
+    cpt = 0     # compteur d'itération
 
     ##operations 
     while T[-1]<Tf and It[-1]!=0: #cas d'arret = le temps final est depasse ou bien il n'y a plus d'infecte  
@@ -124,10 +126,13 @@ def etude_Gillespie(save = False, nom = "Gillespie"):
         St.append(temp[0][0])
         It.append(temp[0][1])
         Rt.append(temp[0][2])
+        cpt = cpt + 1       # incrementation du compteur
 
     ##traces 
     ploteur([T,T,T],[St,It,Rt],["individus sains","individus infectes","individus retablis"],["-","-","-"],"temps","population",nom,save)
-
+        ## pic d'infecte
+    [I_max,T_max] = maxi_IT(It,T)
+    return(I_max,T_max,T[-1],cpt)
 def etude_Diffusion(save=False,nom="diffus"):
     """
     Description : Ensemble d'operations permettant d'etudier l'issue de l'epidemie par approche du systeme d'equations stochastiques.
@@ -200,3 +205,47 @@ def etude_beta_gamma_diff(precision = 0.5,
 
     ploteur2d(X,Y,Z,"taux de recuperation","taux de transmission","moyenne (en s)",nom1,save1) #trace
     ploteur2d(X,Y,VZ,"taux de recuperation","taux de transmission","variance (en s^2)",nom2,save2) #trace
+
+def etude_gillesplie_statistique():
+    """
+    Description : Ensemble d'operations permettant d'etudier les grandeurs statistiques standardes de l'epidemie (moyenne et variance du temps final).
+    ---
+    Variables d'entree : 
+    Aucune.
+     ---
+    Variables renvoyees :
+    Un fichier texte contenant les donnees statistiques.
+    Trois histogrammes pour chacune des etudes statistiques.
+    """  
+    # campagne de simulation de la chaîne de Markov
+    I_max_list = []
+    T_max_list = []
+    T_end_list = []
+    cpt_list = []
+
+    for i in range(N_sim):
+        [I_max,T_max,T_end,cpt] = etude_Gillespie(True)
+        I_max_list.append(I_max)
+        T_max_list.append(T_max)
+        T_end_list.append(T_end)
+        cpt_list.append(cpt)
+
+    # ecriture dans des fichiers
+    f = open("data","w")
+    f.write("T_max I_max T_end compteur \n")
+    for i in range(N_sim):
+        f.write(str(int(T_max_list[i]*1e5)/1e5)+" "+str(int(I_max_list[i]*1e5)/1e5)+" "+str(int(T_end_list[i]*1e5)/1e5)+" "+str(int(cpt_list[i]*1e5)/1e5)+ "\n")
+    f.close()
+
+    N_int = 20     # nombre d'intervalles pour les histogrammes
+    hist=[[] for i in range(3)] 
+
+    for i in range(N_sim): #creation des donnees pour les trois histogrammes 
+        if(I_max_list[i] > 10):
+            hist[0].append(I_max_list[i])
+            hist[1].append(T_max_list[i])
+            hist[2].append(T_end_list[i]) 
+
+    titres=["Nombre d'infectes maximum","histo_I_max","Temps correspondant au nombre d'infectes maximum","histo_T_max","Temps correspondant à l'extinction de l'epidemie","histo_T_end"] 
+    for i in range(3): #trace 
+        histogramme(hist[i],N_int,titres[2*i],titres[2*i+1])

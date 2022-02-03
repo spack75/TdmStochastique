@@ -14,7 +14,7 @@ diffusive_case.py    : contient les fonctions requises pour l'étude
 Ce dossier contient le fichier texte suivant (autre que celui-ci) :
 
 settings.txt : contient toutes les données requises pour lancer la simulation
-
+data.txt : contient des donnees statistiques utiles pour le schéma de Gillespie
 
 ---METHODE D'EMPLOI---
 

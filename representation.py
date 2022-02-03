@@ -58,3 +58,21 @@ def ploteur(X,Y,labels,format,titreX="titreX",titreY="titreY",nom="figure",save=
         plt.show()
     else :
         plt.savefig("Pictures/"+nom)
+
+def histogramme(X,N,Xlabel,nom):
+    """
+    Description : Fonction dessinant l'histogramme d'une liste X pour N intervalles
+    ---
+    variables d'entree : 
+    X    : Liste contenant les valeurs à afficher dans l'histogramme
+    N    : Entier contenant le nombre d'intervalle de l'histogramme
+    nom  : Nom de la figure dans les dossier
+    ---
+    variables renvoyees :
+    L'image de l'histogramme est stockee sous format .png dans le dossier 'data'.
+    """
+    plt.figure()
+    plt.hist(X, range = (min(X),max(X)) , bins = (N))
+    plt.xlabel(Xlabel)
+    plt.ylabel("Nombre de simulations")
+    plt.savefig("Pictures/"+ nom)
