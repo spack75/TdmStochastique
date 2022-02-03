@@ -18,7 +18,7 @@ def ploteur2d(X,Y,Z,titreX="titreX",titreY="titreY",colorbar_nom="colorbar",nom=
     Si save est True, enregistre l'image au nom de la variable nom.
     """
     plt.figure()
-    plt.contourf(X,Y,Z,200)
+    plt.contourf(X,Y,Z,1000)
     plt.xlabel(titreX)
     plt.ylabel(titreY)
     cbar=plt.colorbar()
@@ -29,7 +29,7 @@ def ploteur2d(X,Y,Z,titreX="titreX",titreY="titreY",colorbar_nom="colorbar",nom=
         plt.savefig("Pictures/"+nom)
 
 
-def ploteur(X,Y,labels,format,titreX="titreX",titreY="titreY",nom="figure",save=False):
+def ploteur(X,Y,labels,format,titreX="titreX",titreY="titreY",nom="figure",save=False,legend=True):
     """
     Description : Realise un trace à partir des listes fournies.
     ---
@@ -50,7 +50,8 @@ def ploteur(X,Y,labels,format,titreX="titreX",titreY="titreY",nom="figure",save=
     for i in range(n):
         plt.plot(X[i],Y[i],format[i],label=labels[i])
     plt.grid()
-    plt.legend()
+    if legend:
+        plt.legend()
     plt.xlabel(titreX)
     plt.ylabel(titreY)
     if not save:

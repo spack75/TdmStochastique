@@ -1,8 +1,9 @@
 N-population :10000
-N-population saine initiale :9990
+N-population saine initiale :9900
 N-population retablie initiale :0
 R-transmission :5
 R-recuperation :1
-N-temps de simulation :1000
-N-nombre d'evaluations :1000
+N-temps de simulation :10
+N-nombre d'evaluations :100
+N-nombre de simulations :10
 

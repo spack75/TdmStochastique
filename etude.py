@@ -3,6 +3,7 @@ from deterministe_case import deterministe_case
 from numpy import meshgrid
 from representation import ploteur2d, ploteur
 from gillespie import T_plus_Delta_T
+from diffusive_case import Diffusive_case,variance_temps,temps_moyen
 
 
 N     = Param["population"]      
@@ -26,7 +27,7 @@ def etude_un_cas(save = False,
     nom  : texte, "figure" par defaut. Determine, le cas echeant, le nom du fichier sauvegarde. 
     ---
     Variables renvoyees :
-    une image affichee à l'ecran ou enregistree dans le même dossier d'execution de main.py.
+    une image affichee à l'ecran ou enregistree dans le dossier "Pictures".
     """
 
     (S,I,V,t) = deterministe_case()
@@ -108,7 +109,7 @@ def etude_Gillespie(save = False, nom = "Gillespie"):
     nom  : texte, "figure" par defaut. Determine, le cas echeant, le nom du fichier sauvegarde. 
     ---
     Variables renvoyees :
-    une image affichee à l'ecran ou enregistree dans le même dossier d'execution de main.py .
+    une image affichee à l'ecran ou enregistree dans le dossier "Pictures" .
     """
     ##declaration des variables
     T = [0] #liste des temps 
@@ -126,3 +127,76 @@ def etude_Gillespie(save = False, nom = "Gillespie"):
 
     ##traces 
     ploteur([T,T,T],[St,It,Rt],["individus sains","individus infectes","individus retablis"],["-","-","-"],"temps","population",nom,save)
+
+def etude_Diffusion(save=False,nom="diffus"):
+    """
+    Description : Ensemble d'operations permettant d'etudier l'issue de l'epidemie par approche du systeme d'equations stochastiques.
+    ---
+    Variables d'entree : 
+    save : Booleen, False par defaut. Determine si le graphique genere par l'appel sera enregistre (True) ou non (False).
+    nom  : texte, "figure" par defaut. Determine, le cas echeant, le nom du fichier sauvegarde. 
+    ---
+    Variables renvoyees :
+    une image affichee à l'ecran ou enregistree dans le dans le dossier "Pictures".
+    """
+    ##declaration des variables
+    [Sdif,Idif,T] = Diffusive_case() #obtention des vecteurs solutions
+    
+    ##traces
+    if len(Sdif)==1: #si on a une seule courbe, on fait le trace de l'epidemie complete car la lisibilite le permet
+        Rdif=[[N-Sdif[0][i]-Idif[0][i]for i in range(len(Sdif[0]))]]
+        Y=Sdif+Idif+Rdif
+        print(Y[2])
+        ploteur(3*T,Y,["individus sains","individus infectes","individus retables"],["-","-","-"],"temps","population",nom,save,False)
+    else: #sinon on ne superpose que les courbes du meme type
+        Ftot=["-" for i in range(Param["nombre de simulations"])] 
+        ploteur(T,Idif,Ftot,Ftot,"temps","population",nom,save,False)
+        ploteur(T,Sdif,Ftot,Ftot,"temps","population",nom,save,False)
+    
+
+    
+
+
+def etude_beta_gamma_diff(precision = 0.5,
+                       nb_calculs = 400,
+                       save1 = False,
+                       save2 = False,
+                       nom1 = "moy",
+                       nom2 = "var"
+                       ):
+    """
+    Description : Ensemble d'operations permettant d'etudier les grandeurs statistiques standardes de l'epidemie (moyenne et variance du temps final).
+    ---
+    Variables d'entree : 
+    precision : Reel determinant la precision du trace contour.
+    nb_calculs : Entier determinant le nombre de calcul fait pour chaque x et chaque y du contour, il y aura donc nb_calculs*nb_calculs calculs en tout.
+    save : Booleen, False par defaut. Determine si le graphique genere par l'appel sera enregistre (True) ou non (False).
+    nom  : texte, "figure" par defaut. Determine, le cas echeant, le nom du fichier sauvegarde. 
+    ---
+    Variables renvoyees :
+    une image affichee à l'ecran ou enregistree dans le dossier "Pictures" .
+    """                   
+    gamma2d = [precision*i for i in range(1,nb_calculs)] #creation de l'intervalle gamma !!! bien faire varier precision et nb_calculs pour choisir l'intervalle (borne sup = nb_calculs*precision-1)
+    beta2d  = [precision*i for i in range(1,nb_calculs)] #creation de l'intervalle beta
+    X,Y     = meshgrid(gamma2d, beta2d) #creation du maillage, noms X et Y pour coincider avec les conventions numpy et matplotlib (Z=f(X,Y))
+    Z=[] #futur tableau contenant les issues, nom Z pour coincider avec les conventions numpy et matplotlib (Z=f(X,Y))
+    VZ=[] 
+
+    for i in beta2d: #parcours sur gamma puis sur beta
+        print(i)
+        tempm=[] #tableau qui à l'issue de la boucle contiendra une ligne correspondant à Z = f(X,Yi)
+        tempv=[] #tableau qui à l'issue de la boucle contiendra une ligne correspondant à RZ = f(X,Yi)
+        for j in gamma2d:
+          #  if j>i:
+          #      tempm.append(0)  #remplissage de tempm
+          #      tempv.append(0) #remplissage de tempv     
+          #  else:          
+                [Sdif,Idif,T] = Diffusive_case(beta=i,gamma=j)
+                tempm.append(temps_moyen(Sdif,T))  #remplissage de tempm
+                tempv.append(variance_temps(Sdif,T)) #remplissage de tempv
+
+        Z.append(tempm) #injection de temp pour completer une ligne de Z à l'issue de la boucle imbriquee 
+        VZ.append(tempv) #injection de temp pour completer une ligne de Z à l'issue de la boucle imbriquee 
+
+    ploteur2d(X,Y,Z,"taux de recuperation","taux de transmission","moyenne (en s)",nom1,save1) #trace
+    ploteur2d(X,Y,VZ,"taux de recuperation","taux de transmission","variance (en s^2)",nom2,save2) #trace
