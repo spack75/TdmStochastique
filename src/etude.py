@@ -137,6 +137,7 @@ def etude_Gillespie(save = False, nom = "figure"):
         if (It[-1] == 0):
             print("\n")
             print("Temps d'arrêt de l'épidémie = ",int(T[-1]*1e5)/1e5,"s\n")
+    
     ## tracés 
     ploteur([T,T,T],[St,It,Rt],["individus sains","individus infectés","individus rétablis"],["-","-","-"],"temps","population",nom,save)
 

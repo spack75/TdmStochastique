@@ -1,4 +1,5 @@
 from etude import *
+from representation import *
 
 
 #etude_un_cas(False)#cet appel tracera les résultats d'une étude épidémiologique par la résolution du modèle déterministe.
@@ -40,3 +41,45 @@ f = open("data/compteur","w")
 for i in range(N):
     f.write(str(cpt_list[i])+ "\n")
 f.close
+
+# I_max_list = []
+# T_max_list = []
+# T_end_list = []
+# cpt_list = []
+
+# f = open("data/data_markov.txt","r")
+# for i in f:
+#      I_max_list.append(float(i.split()[1]))
+#      T_max_list.append(float(i.split()[2]))
+#      T_end_list.append(float(i.split()[3]))
+#      cpt_list.append(float(i.split()[4]))
+# f.close()
+
+
+# Histogrammes des épidémies non arrêtées prématuréments -------------------------------------------------
+# Histogramme maximum infectés pour les miluations non arrêtés prématuréments
+N_int = 20      # nombre d'intervalle pour les histogrammes
+I_max_non_premature = []
+for i in I_max_list:
+    if(i > 10):
+        I_max_non_premature.append(i)
+
+histogramme(I_max_non_premature,N_int,"Nombre d'infectés maximum","histo_I_max")
+
+
+#  Histogramme temps correspondant au maximum d'infectés pour les miluations non arrêtés prématuréments
+T_max_non_premature = []
+for i in range(len(I_max_list)):
+    if(I_max_list[i] > 10):
+        T_max_non_premature.append(T_max_list[i])
+
+histogramme(T_max_non_premature,N_int,"Temps correspondant au nombre d'infectés maximum","histo_T_max")
+
+#  Histogramme temps correspondant au maximum d'infectés pour les miluations non arrêtés prématuréments
+T_end_non_premature = []
+for i in range(len(I_max_list)):
+    if(I_max_list[i] > 10):
+        T_end_non_premature.append(T_end_list[i])
+
+histogramme(T_end_non_premature,N_int,"Temps correspondant à l'extinction de l'épidémie","histo_T_end")
+# --------------------------------------------------------------------------------------------------------
